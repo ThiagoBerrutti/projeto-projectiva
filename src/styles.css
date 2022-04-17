@@ -1,3 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background-color: rgb(240, 242, 245);
+    /* background-color: #15191a; */
+    /* background-color: #0e1011; */
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.success-snackbar {
+    background-color: #4a934a;
+    color: white;
+    text-align: center;
+}
+
+.error-snackbar {
+    background-color: #b00020;
+    color: white;
+    text-align: center;
+}
+
+.success-snackbar button {
+    background-color: rgb(74, 147, 74);
+    color: white;
+    border: none;
+}
+
+.error-snackbar button {
+    background-color: rgb(176, 0, 32);
+    color: white !important;
+    border: none;
+}

@@ -1,28 +1,76 @@
-mat-toolbar {    
+mat-toolbar {
     padding-left: 40px;
     padding-right: 40px;
+    box-shadow: 0 2px 5px #c3c3c3;
 }
 
-.links {
-    height:100%;
+mat-toolbar-row {
+    height: 70px;
+}
+
+nav{
     display:flex;
+    flex-direction: row;
+    height: 100%;
+    margin:0;
+    padding: 0;
 }
 
-.links a[mat-button] {
-    height:100%;
+nav ul{
+    list-style-type: none;
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
     display:flex;
     align-items: center;
-    font-size:1.4rem;
+}
+
+nav ul li{
+    display: inline-block;
+}
+
+nav ul li a{
+    display:flex;
+    align-items: center;
+}
+
+nav .mat-button-base {
+    font-size: 18px;
+    line-height: calc(1.4em + 20px);
     font-weight: 400;
 }
 
-.logo{
-    font-weight: 700;
-    font-size: 2rem;
-    letter-spacing: 4px;
+.login {
+    border: 2px solid #c3c3c3;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #000;
 }
 
+.profile {
+    align-items: center;
+    font-size: 30px;
+}
+
+.profile .mat-icon {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+}
+
+.logo {
+    display:flex;
+    align-items: center;
+    font-weight: 700;
+    height: 100%;
+    padding:0px;
+    font-size: 2rem;
+    letter-spacing: 4px;
+    text-decoration: none;
+    color: #fff;    
+}
 
 .spacer {
     flex: 1 1 auto;
 }
+
