@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Client } from 'src/app/shared/models/client';
+import { UserWithClients } from 'src/app/shared/models/user-with-clients';
 import { AppConstants } from '../../shared/appConstants';
 import { UserCredentials } from '../../shared/models/userCredentials';
 import { AuthService } from '../../shared/services/auth.service';
-import { CustomValidators } from '../../shared/username-available.directive';
+import { CustomValidators } from '../../shared/username-available';
 
 @Component({
     selector: 'app-login',
@@ -71,9 +73,15 @@ export class LoginComponent implements OnInit
             panelClass: 'success-snackbar'
         });
 
-        console.log("User authenticated");
+        let user = authResponse.data;
 
-        this.routes.navigate(["/"]);
+        if (user instanceof UserWithClients){
+            this.routes.navigate(["/"]);
+        }
+
+        if (user instanceof Client){
+            this.routes.navigate(["/client-area"]);
+        }
 
     }
 

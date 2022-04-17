@@ -20,7 +20,10 @@ import { AuthService } from './shared/services/auth.service';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { CustomValidators } from './shared/username-available.directive';
+import { CustomValidators } from './shared/username-available';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { ClientAreaComponent } from './client-area/client-area.component';
 
 
 @NgModule({
@@ -32,7 +35,8 @@ import { CustomValidators } from './shared/username-available.directive';
         RegisterComponent,
         CpfFormatPipe,
         UserDetailsComponent,
-        UserEditComponent
+        UserEditComponent,
+        ClientAreaComponent
     ],
     imports: [
         BrowserModule,
@@ -46,6 +50,8 @@ import { CustomValidators } from './shared/username-available.directive';
         FormsModule,
         ReactiveFormsModule,
         MatSnackBarModule,
+        MatCheckboxModule,
+        MatButtonToggleModule
 
     ],
     providers: [

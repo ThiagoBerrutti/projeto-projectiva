@@ -6,7 +6,8 @@ import { AppConstants } from '../../shared/appConstants';
 import { UserCredentials } from '../../shared/models/userCredentials';
 import { UserUpdateModel } from '../../shared/models/userUpdateModel';
 import { AuthService } from '../../shared/services/auth.service';
-import { CustomValidators } from '../../shared/username-available.directive';
+import { CustomValidators } from '../../shared/username-available';
+
 
 
 @Component({
@@ -70,7 +71,7 @@ export class RegisterComponent implements OnInit
                 verticalPosition: 'bottom',
                 panelClass: 'error-snackbar'
             });
-            
+
             return;
         }
 
