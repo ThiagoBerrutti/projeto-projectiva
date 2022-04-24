@@ -1,35 +1,26 @@
-<form [formGroup]="form" (submit)="handleSubmit()">
-        <mat-form-field appearance="fill">
+<div class="container">
+    <form [formGroup]="form" (submit)="handleSubmit()">
+        <mat-form-field appearance="outline" class="firstName">
             <mat-label>First name</mat-label>
             <input matInput type="text" placeholder="John" formControlName="firstName" required>
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="outline" class="lastName">
             <mat-label>Last name</mat-label>
             <input matInput type="text" placeholder="Doe" formControlName="lastName" required>
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="outline" class="rg">
             <mat-label>RG</mat-label>
             <input matInput type="text" placeholder="RG" formControlName="rg" required>
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="outline" class="cpf">
             <mat-label>CPF</mat-label>
-            <input type="text" matInput [maxlength]="14" [value]="form.get('cpf')?.value | cpfFormat"
-                placeholder="{{'11122233344' | cpfFormat}}" (keypress)="handleInputOnlyDigits($event)"
-                (paste)="handlePasteOnlyDigits($event)" formControlName="cpf" required>
+            <input type="text" matInput [maxlength]="14" placeholder="999.999.999-99" formControlName="cpf"
+                (paste)="handlePasteOnlyDigits($event)" required>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Username</mat-label>
-            <input matInput type="text" placeholder="Choose an unique username" formControlName="userName" required>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Password</mat-label>
-            <input matInput type="text" placeholder="Your password here" formControlName="password" required>
-        </mat-form-field> 
-
-         <button type="submit" mat-button>SUBMIT</button>
+        <button class="submit-btn" type="submit" color="primary" mat-raised-button>Update</button>
     </form>
+</div>

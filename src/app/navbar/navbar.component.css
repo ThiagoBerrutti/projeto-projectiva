@@ -1,11 +1,11 @@
 mat-toolbar {
-    padding-left: 40px;
-    padding-right: 40px;
+    padding: 0 min(40px, 3%);
     box-shadow: 0 2px 5px #c3c3c3;
 }
 
 mat-toolbar-row {
     height: 70px;
+    padding:0;
 }
 
 nav{
@@ -54,8 +54,6 @@ nav .mat-button-base {
 
 .profile .mat-icon {
     font-size: 40px;
-    width: 40px;
-    height: 40px;
 }
 
 .logo {
@@ -63,7 +61,7 @@ nav .mat-button-base {
     align-items: center;
     font-weight: 700;
     height: 100%;
-    padding:0px;
+    padding:0px 16px;
     font-size: 2rem;
     letter-spacing: 4px;
     text-decoration: none;

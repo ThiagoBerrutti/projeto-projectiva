@@ -1,10 +1,12 @@
+import { UserWithClients } from "./user-with-clients";
+
 export interface User
 {
-     userName: string;
+     username: string;
      password: string;
-     id: number;
      firstName: string;
      lastName: string;
+     fullName:string;
      cpf: string;
      rg: string;
 }

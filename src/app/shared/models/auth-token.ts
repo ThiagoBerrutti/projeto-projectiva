@@ -2,11 +2,10 @@ import { AppConstants } from "../appConstants";
 
 export class AuthToken 
 {
-    //private _value: string; 
-
-    //get value() { return this._value }
-
-    
+    static validate(token: string | null): boolean
+    {
+        return !!token;
+    }
 
     static getUsername(token: string): string
     {
@@ -40,26 +39,10 @@ export class AuthToken
         return value;
     }
 
-    // setId(id?: string | number): string
-    // {
-    //     let usernameFieldString = AppConstants.AUTH_TOKEN_USERNAME_FIELD;
-
-    //     let fieldIndex = this.value.search(usernameFieldString);
-    //     if (fieldIndex < 0)
-    //     {
-    //         return this.value + usernameFieldString + id;
-    //     }
-
-    //     this._value = this.value.replace(usernameFieldString, usernameFieldString + id + ";");
-
-    //     return this.value;
-    // }
-
-
-    static create(id: string | number, type:string):string
+    static create(username: string | number, type: string): string
     {
-        return AppConstants.AUTH_TOKEN_BASE + 
-                AppConstants.AUTH_TOKEN_USERNAME_FIELD + id + ";" +
-                AppConstants.AUTH_TOKEN_TYPE_FIELD + type + ";";
+        return AppConstants.AUTH_TOKEN_BASE +
+            AppConstants.AUTH_TOKEN_USERNAME_FIELD + username + ";" +
+            AppConstants.AUTH_TOKEN_TYPE_FIELD + type + ";";
     }
 }

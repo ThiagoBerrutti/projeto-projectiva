@@ -8,9 +8,7 @@ export class UserUpdateModel
             this.firstName = firstName;
             this.lastName = lastName;
             this.rg = rg;
-
         }
-
     
     public password!: string;
     public firstName!: string;

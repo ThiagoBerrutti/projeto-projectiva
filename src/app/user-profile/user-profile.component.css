@@ -1,0 +1,80 @@
+:host{
+  display:flex;
+  flex-direction:row;
+  align-items: flex-start;
+}
+.user-container {
+  
+  /* width: 50%; */
+  /* flex-wrap: wrap; */
+}
+
+.client-container *
+{
+  background-color: #ddd;
+}
+
+.clients-list {
+  height:100%;
+  
+}
+/* .client-container {
+  width:calc(50%-10px);
+  padding:0 5px;
+  height:100%;
+  margin:auto;
+} */
+
+.container {
+  width:calc(50% - 20px);
+  padding:5px;
+  height:100%;
+  /* margin:auto; */
+}
+
+.client-container span {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+
+
+
+.mat-cell, .mat-header-cell {
+  padding: 0 12px;
+}
+
+.mat-cell:first-child, .mat-header-cell:first-child {
+  padding-left: 24px;
+}
+
+.mat-cell:last-child, .mat-header-cell:last-child {
+  padding-right: 24px;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color .2s;
+}
+
+.mat-column-name{
+  font-weight: bold;
+  border-right: 1px solid hsl(0, 0%, 0%, .5);
+}
+
+.mat-header-cell.mat-column-name {
+  font-size:1.4em;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: hsl(0, 0%, 0%, .5);
+  border-width: 1px;;
+  background-color: #f4f4f4  
+}
+
+.row-is-clicked {
+  font-weight: bold;
+}

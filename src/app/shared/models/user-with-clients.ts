@@ -1,35 +1,52 @@
+import { UserService } from "../services/user.service";
+import { UsersMock } from "../usersMock";
 import { Client } from "./client";
 import { User } from "./user";
 
 
 export class UserWithClients implements User
 {
-    public userName!: string;
+    public username!: string;
     public password!: string;
-    public id!: number;
     public firstName!: string;
     public lastName!: string;
     public cpf!: string;
     public rg!: string;
 
+    public clientsUsernames!: string[];
     public clients!: Client[];
 
-    constructor(){
+    get fullName(): string { return this.firstName + " " + this.lastName }
+    //public clients!: Client[];
+    // {
+    //     let x = this.clientsUsernames.map(username => this._userService!.getUserByUsername(username) as Client);
+    //     console.log("Clients: ",x);
+    //     console.log("UserService:",this._userService);
+
+    //     return x;
+    // }
+
+
+    constructor()
+    {
         this.clients = [];
+        this.clientsUsernames = [];
     }
 
-    public static factory(userName?: string, password?: string, id?: number,
-        firstName?: string, lastName?: string, cpf?: string, rg?: string): UserWithClients
+    public static factory(username: string, password?: string,
+        firstName?: string, lastName?: string,
+        cpf?: string, rg?: string, clientsUsernames?: string[]): UserWithClients
     {
-        let user = new UserWithClients();
-
-        user.userName = userName ?? "";
-        user.password = password ?? "";
-        user.id = id ?? 0;
-        user.firstName = firstName ?? "";
-        user.lastName = lastName ?? "";
-        user.cpf = cpf ?? "";
-        user.rg = rg ?? "";
+        let user = new UserWithClients()
+        {
+            user.username = username;
+            user.password = password ?? "";
+            user.firstName = firstName ?? "";
+            user.lastName = lastName ?? "";
+            user.cpf = cpf ?? "";
+            user.rg = rg ?? "";
+            user.clientsUsernames = clientsUsernames ?? [];
+        };
 
         return user;
     }

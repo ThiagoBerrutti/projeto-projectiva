@@ -1,0 +1,141 @@
+:host {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.client-container {
+    display: flex;
+    flex-direction: column;
+    /* flex: 1 1 auto; */
+    height: 100%;
+    width: max(40%, 360px);
+    box-sizing: border-box;
+}
+
+.details-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    width: max(60%, 360px);
+    background-color:white;
+}
+
+
+/* client */
+
+/*search box */
+.search {
+    width: 100%;
+    background-color: #ddd;
+    margin-bottom: 10px;
+    padding:20px;
+    box-sizing: border-box;
+}
+
+.search form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.search .name {
+    flex: 2 0 auto;
+    width: 100%;
+}
+
+.search .rg,
+.search .cpf {
+    flex: 1 1 auto;
+    width:120px;
+}
+
+.search .search-btn {
+    justify-self: center;
+    flex: 1 0 auto;
+    width: 150px;
+    margin: 0 calc(50% - 75px);
+}
+
+/* client list*/
+.client-list {
+    height: 100%;
+    width: 100%;
+}
+
+.client-list .mat-row .mat-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color .2s;
+}
+
+.client-list .mat-row:hover .mat-cell {
+    border-color: hsl(0, 0%, 0%, .5);
+    border-width: 1px;
+    background-color: #f4f4f4
+}
+
+
+/* details*/
+
+.client-details-card {
+    justify-content: center;
+}
+
+.client-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+    gap:10px;
+}
+
+.client-details .mat-card{
+    line-height:2;
+    background-color: red;
+}
+
+
+.client-details .mat-card-content {
+    font-size: 18px;
+}
+
+/* .client-details-card p {
+    font-size} */
+
+.client-details .mat-card-title {
+    font-size: 28px;
+    height:28px
+}
+
+.client-details-buttons {
+    display: flex;
+    gap:8px;
+}
+
+.details-container .mat-icon,
+.details-container .mat-card-avatar {
+    font-size: 200px;
+    height: 200px;
+    width: 200px;
+    line-height: 200px;
+    color: red;
+    
+}
+
+.row-is-clicked {
+    font-weight: bold;
+    background-color: #f6f6f6;
+    border-color: hsl(0, 0%, 0%, .5);
+}

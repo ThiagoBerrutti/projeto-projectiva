@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Client } from 'src/app/shared/models/client';
 import { UserWithClients } from 'src/app/shared/models/user-with-clients';
+import { UsersMock } from 'src/app/shared/usersMock';
 import { AppConstants } from '../../shared/appConstants';
 import { UserCredentials } from '../../shared/models/userCredentials';
 import { AuthService } from '../../shared/services/auth.service';
@@ -34,8 +35,8 @@ export class LoginComponent implements OnInit
     ngOnInit(): void
     {
         this.form = this.formBuilder.group({
-            userName: [null, [Validators.required]],
-            password: [null, [Validators.required, Validators.minLength(AppConstants.USER_PASSWORD_MIN_LENGTH)]]
+            userName: ["user1", [Validators.required]],
+            password: ["12345", [Validators.required, Validators.minLength(AppConstants.USER_PASSWORD_MIN_LENGTH)]]
         });
     }
 
@@ -78,7 +79,7 @@ export class LoginComponent implements OnInit
         if (user instanceof UserWithClients){
             this.routes.navigate(["/"]);
         }
-
+        
         if (user instanceof Client){
             this.routes.navigate(["/client-area"]);
         }

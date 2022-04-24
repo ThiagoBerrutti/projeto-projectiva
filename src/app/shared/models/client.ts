@@ -3,28 +3,36 @@ import { UserWithClients } from "./user-with-clients";
 
 
 export class Client implements User{
-    public userName!: string;
+    public username!: string;
     public password!: string;
-    public id!: number;
     public firstName!: string;
     public lastName!: string;
+    
     public cpf!: string;
     public rg!: string;
     public clientOf?: UserWithClients;
 
-    public static factory(userName?: string, password?: string, id?: number,
+    get fullName():string {return this.firstName + " "+ this.lastName}
+
+
+    constructor()
+    {
+    }
+    
+    public static factory(username: string, password?: string,
         firstName?: string, lastName?: string, cpf?: string, rg?: string): Client
     {
         let user = new Client();
 
-        user.userName = userName ?? "";
+        user.username = username;
         user.password = password ?? "";
-        user.id = id ?? 0;
         user.firstName = firstName ?? "";
         user.lastName = lastName ?? "";
         user.cpf = cpf ?? "";
         user.rg = rg ?? "";
-
+        user.clientOf = undefined;
+        
+        //user.fullName = user.firstName + " " + user.lastName;
         return user;
     }
 }

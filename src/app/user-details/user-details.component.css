@@ -1,6 +1,14 @@
+:host{
+    display:flex;
+}
+
+.user-details {
+    display:flex;
+    flex-direction: column;
+}
+
 form {
-    width: 400px;
-    height: 500px;
+    display:flex;
     background-color: #ccc;
 }
 

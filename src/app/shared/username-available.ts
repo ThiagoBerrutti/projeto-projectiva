@@ -15,7 +15,7 @@ export class CustomValidators
     {
         return (control: AbstractControl): ValidationErrors | null =>
         {
-            const found = this.authService.isUserNameAvailable(control.value);
+            const found = this.authService.isUsernameAvailable(control.value);
 
             return !found ? { usernameUnavailable: { value: control.value } } : null;
         };

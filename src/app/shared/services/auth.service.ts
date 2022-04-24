@@ -1,12 +1,15 @@
 import { Injectable, OnInit, Type } from '@angular/core';
 import { AuthResponse } from 'src/app/auth/auth-response';
 import { AppConstants } from '../appConstants';
+import { LoginRepository } from '../login-repository';
 import { AuthToken } from '../models/auth-token';
 import { Client } from '../models/client';
 import { User } from '../models/user';
 import { UserWithClients } from '../models/user-with-clients';
 import { UserCredentials } from '../models/userCredentials';
+import { UserRepository } from '../user-repository';
 import { UsersMock } from '../usersMock';
+import { UserService } from './user.service';
 
 @Injectable({
     providedIn: 'root'
@@ -14,18 +17,13 @@ import { UsersMock } from '../usersMock';
 
 export class AuthService implements OnInit
 {
+    public localUser: User | undefined;
+
     private userLogged!: boolean;
 
-    public loggedUsers!: Map<string, User>;
-    public registeredUsers!: Map<string, User>;
-
-    constructor()
+    constructor(private _userService: UserService, private _loginRepository: LoginRepository)
     {
-        this.loggedUsers = new Map<string, User>(); // [token, user]
-        this.registeredUsers = new Map<string, User>(); // [username, user];
-
-        UsersMock.users.forEach(u => this.registeredUsers.set(u.userName, u));
-        UsersMock.clients.forEach(c => this.registeredUsers.set(c.userName, c));
+        this.localUser = undefined;
     }
 
     ngOnInit(): void
@@ -33,12 +31,9 @@ export class AuthService implements OnInit
     }
 
 
-    private getUser(userName: string): User | undefined
-    {
-        return this.registeredUsers.get(userName);
-    }
 
-    private getAuthTokenFromLocalStorage(): string | null
+
+    public getAuthTokenFromLocalStorage(): string | null
     {
         return window.localStorage.getItem(AppConstants.USER_AUTH_TOKEN_KEY);
     }
@@ -52,16 +47,17 @@ export class AuthService implements OnInit
     {
         if (user instanceof Client)
         {
-            return AuthToken.create(user.userName, "client");
+            return AuthToken.create(user.username, "client");
         }
 
-        return AuthToken.create(user.userName, "userWithClients");
+        return AuthToken.create(user.username, "userWithClients");
     }
 
     public setUserLoggedOnLocalStorage(logged: boolean): void
     {
         this.userLogged = logged;
         window.localStorage.setItem(AppConstants.USER_LOGGED_KEY, logged.toString());
+        1+1;
     }
 
     public getUserLoggedFromLocalStorage(): string
@@ -69,38 +65,46 @@ export class AuthService implements OnInit
         return window.localStorage.getItem(AppConstants.USER_LOGGED_KEY) ?? "";
     }
 
+    public getCurrentUser(): User | undefined
+    {
+        return this._loginRepository.getCurrentUser();
+    }
+
     public isLogged(): boolean
     {
-        return window.localStorage.getItem(AppConstants.USER_LOGGED_KEY) == "true";
+        let token: string | null = window.localStorage.getItem(AppConstants.USER_AUTH_TOKEN_KEY);
+        if (!AuthToken.validate(token)) 
+        {
+            return false;
+        }
+
+        let user = this._loginRepository.getLoggedUserByToken(token!);
+
+        return !!user &&
+            user == this.localUser
     }
 
-    public isUserWithClients()
+    public isUsernameAvailable(username: string): boolean
     {
-
-    }
-
-    public isUserNameAvailable(userName: string): boolean
-    {
-        let user: User | undefined = this.getUser(userName);
+        let user: User | undefined = this._userService.getUserByUsername(username);
         return !user;
     }
 
 
     public registerUser(userCredentials: UserCredentials): AuthResponse<UserCredentials>
     {
-        var userNameAvailable = this.isUserNameAvailable(userCredentials.userName);
-        if (!userNameAvailable)
+        var usernameAvailable = this.isUsernameAvailable(userCredentials.username);
+        if (!usernameAvailable)
         {
             var x = new AuthResponse(false, userCredentials, "User not registered");;
-            console.log(x);
             return x;
         }
 
-        let user = UserWithClients.factory(userCredentials.userName, userCredentials.password, this.registeredUsers.size + 1);
+        let user = UserWithClients.factory(userCredentials.username, userCredentials.password);
 
-        this.registeredUsers.set(user.userName, user);
+        this._userService.registerUser(user);
 
-        let authResponse = this.authenticateUser(new UserCredentials(user.userName, user.password));
+        let authResponse = this.authenticateUser(new UserCredentials(user.username, user.password));
         let response = authResponse;
         if (!authResponse.success)
         {
@@ -116,32 +120,38 @@ export class AuthService implements OnInit
 
     public authenticateUser(credentials: UserCredentials): AuthResponse<User>
     {
-        let user = this.getUser(credentials.userName);
+        let user = this._userService.getUserByUsername(credentials.username);
         if (user?.password != credentials.password)
         {
             return new AuthResponse<User>(false, user, "Invalid username / password");
         }
 
         let token = this.createToken(user);
-        console.log("TOKEN: "+token);
-        console.log("USERNAME: "+ AuthToken.getUsername(token));
-        console.log("TYPE: "+ AuthToken.getUserType(token));
 
+        this._loginRepository.addLoggedUser(token, user.username);
         this.setAuthTokenOnLocalStorage(token);
-
-        this.loggedUsers.set(token, user);
-        console.log("LOGGED USERS: ")
-        console.log("=============")
-        this.loggedUsers.forEach((u,t) => { console.log("token: "+t); console.log("user: "+u.userName)});
-
         this.setUserLoggedOnLocalStorage(true);
+
+        this.localUser = user;
 
         return new AuthResponse<User>(true, user, "User authenticated successfully");
     }
 
-
-    public validateToken(token: string)
+    public logoutUser(): AuthResponse<undefined>
     {
-        
+        let token = window.localStorage.getItem(AppConstants.USER_AUTH_TOKEN_KEY);
+        if (!token)
+        {
+            return new AuthResponse<undefined>(false, undefined, "User not logged");
+        }
+
+        this._loginRepository.removeLoggedUser(token);
+        window.localStorage.removeItem(AppConstants.USER_AUTH_TOKEN_KEY);
+        this.localUser = undefined;
+
+        return new AuthResponse<undefined>(true, undefined, "Logged out");
     }
+
+
+
 }

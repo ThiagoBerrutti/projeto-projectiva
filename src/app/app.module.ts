@@ -21,9 +21,21 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CustomValidators } from './shared/username-available';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ClientAreaComponent } from './client-area/client-area.component';
+import { UserRepository } from './shared/user-repository';
+import { UserService } from './shared/services/user.service';
+import { LoginRepository } from './shared/login-repository';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { MatRippleModule } from '@angular/material/core';
+import { UserClientsComponent } from './user-clients/user-clients.component';
+import { ClientEditComponent } from './client-edit/client-edit.component'
+import { AccessGuard } from './shared/access-guard';
+import {MatListModule} from '@angular/material/list';
 
 
 @NgModule({
@@ -36,7 +48,10 @@ import { ClientAreaComponent } from './client-area/client-area.component';
         CpfFormatPipe,
         UserDetailsComponent,
         UserEditComponent,
-        ClientAreaComponent
+        ClientAreaComponent,
+        UserProfileComponent,
+        UserClientsComponent,
+        ClientEditComponent,
     ],
     imports: [
         BrowserModule,
@@ -51,14 +66,24 @@ import { ClientAreaComponent } from './client-area/client-area.component';
         ReactiveFormsModule,
         MatSnackBarModule,
         MatCheckboxModule,
-        MatButtonToggleModule
+        MatButtonToggleModule,
+        MatExpansionModule,
+        MatCardModule,
+        MatTableModule,
+        MatRippleModule,
+        MatListModule
+        
+
 
     ],
     providers: [
         AuthService,
-        CpfFormatPipe,
-        CustomValidators
-        
+        UserService,
+        CustomValidators,
+        UserRepository,
+        LoginRepository,
+        AccessGuard
+
     ],
     bootstrap: [AppComponent]
 })

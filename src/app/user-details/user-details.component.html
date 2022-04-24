@@ -1,1 +1,10 @@
-<p>user-details works!</p>
+<mat-card class="user-details">
+    <mat-card-title>{{user.fullName}}</mat-card-title>
+    <mat-card-content>
+        <p><strong>Username: </strong>{{user.username}}</p>
+        <p><strong>First name: </strong>{{user.firstName}}</p>
+        <p><strong>Last name: </strong>{{user.lastName}}</p>
+        <p><strong>CPF</strong>{{user.cpf}}</p>
+        <p><strong>RG: </strong>{{user.rg}}</p>
+    </mat-card-content>
+</mat-card>

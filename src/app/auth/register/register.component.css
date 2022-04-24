@@ -8,13 +8,19 @@
     border-radius: 50%;
 } */
 
-:host{
-    margin:auto;
+:host {
+    margin: auto;
+    display: flex;
+    height: 100%;
+    width: 100%;
+
+    align-items: center;
+    justify-content: center;
 }
 
-small{
+small {
     align-self: flex-start;
-    padding:10px;
+    padding: 10px;
 }
 
 .form-container {
@@ -25,17 +31,17 @@ small{
     padding-top: 40px;
     border-radius: 5px;
     background-color: white;
-    margin-top:20px;
+    margin-top: 20px;
 }
 
 form {
-    display:flex;
-    width:100%;
+    display: flex;
+    width: 100%;
     align-items: center;
     flex-direction: column;
 }
 
-.mat-error{
+.mat-error {
     justify-self: left;
     align-self: flex-start;
 }
@@ -44,8 +50,6 @@ form {
     box-sizing: border-box;
     font-size: 1.3em;
     width: calc(100% - 40px);
-    border-radius: 50%;
-    outline-color: aquamarine;    
 }
 
 .login-btn {

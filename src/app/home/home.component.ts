@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
+import { UserRepository } from '../shared/user-repository';
 
 @Component({
     selector: 'app-home',
@@ -9,20 +12,54 @@ import { AuthService } from '../shared/services/auth.service';
 export class HomeComponent implements OnInit
 {
 
-    constructor(private authService: AuthService) { }
+    public form!: FormGroup;
 
-    ngOnInit(): void
+    get userName() { return this.form.get('username') }
+
+    constructor(
+        private _authService: AuthService, 
+        private userRepository: UserRepository, 
+        private formBuilder: FormBuilder,
+        private router: Router) 
     {
     }
 
+    ngOnInit(): void
+    {
+        this.form = this.formBuilder.group({
+            username: [null]
+        });
+
+        if (!this._authService.isLogged())
+        {
+            this.router.navigate(["/login"]);
+        }
+
+        // console.log(this.form)
+    }    
+
     handleClick()
     {
-        let users = this.authService.registeredUsers;
-        console.log("Logged: "+this.authService.isLogged() + "\n\n");
-        
-        users.forEach(u => console.log(u));
-        
-        
+        // console.log(this.form)
+    }
+    
+    show()
+    {
+        let x = this.userRepository.getClients();//.map(u => u.firstName);
+        console.log(x);
+    }
+    handleSubmit()
+    {
+        // let username = this.form.get('username')?.value || "";
+
+        // let user = this.userRepository.getUserByUsername(username);
+        // if (!user)
+        // {
+        //     console.log("User not found");
+        //     return;
+        // }
+        // console.log("User found!");
+        // console.log(user);
     }
 
 }

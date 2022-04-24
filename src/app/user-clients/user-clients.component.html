@@ -1,0 +1,81 @@
+<div class="client-container">
+    <div class="search">
+        <div>
+            <span>
+                Search
+            </span>
+
+            <form [formGroup]="form" (submit)="onSearchSubmit()">
+                <mat-form-field class="name">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name">
+                </mat-form-field>
+                <mat-form-field class="cpf">
+                    <mat-label>CPF</mat-label>
+                    <input matInput formControlName="cpf">
+                </mat-form-field>
+                <mat-form-field class="rg">
+                    <mat-label>RG</mat-label>
+                    <input matInput formControlName="rg">
+                </mat-form-field>
+                <button color="primary" class="search-btn" mat-raised-button>Search</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="client-list">
+        <div>
+            <div>
+                <span>
+                    Clients
+                </span>
+                <div class="client-details-buttons">
+                    <button class="client-details-buttons-new" (click)="onClickNewClientButton()"
+                        mat-raised-button>New</button>
+                    <button class="client-details-buttons-seila" mat-raised-button>SEILA</button>
+                    <button class="client-details-buttons-update" [disabled]="!selectedClient"
+                        (click)="onClickUpdateClientButton()" mat-raised-button color="accent">Update</button>
+                    <button class="client-details-buttons-remove" [disabled]="!selectedClient" (click)="removeClient()"
+                        mat-raised-button color="warn">Remove</button>
+                </div>
+            </div>
+            <div *ngIf="isUserWithClients()">
+                <mat-table [dataSource]="clientList">
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                        <mat-cell *matCellDef="let client">{{client.fullName}} </mat-cell>
+                    </ng-container>
+                    <mat-row *matRowDef="let row; 
+                    columns: displayedColumns;" (click)="onClickRow(row, $event)"
+                        [class.row-is-clicked]="selectedClient == row"></mat-row>
+                </mat-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="details-container">
+    <ng-container *ngIf="selectedClient && currentAction === 'details'" class="client-details">
+        <mat-card-title-group>
+            <mat-card-title>{{selectedClient.fullName}}</mat-card-title>
+        </mat-card-title-group>
+        <mat-card-content>
+            <p>Username: {{selectedClient.username}}</p>
+            <p>First name: {{selectedClient.firstName}}</p>
+            <p>Last name: {{selectedClient.lastName}}</p>
+            <p>CPF: {{selectedClient.cpf }}</p>
+            <p>RG: {{selectedClient.rg}}</p>
+        </mat-card-content>
+    </ng-container>
+
+
+    <ng-container *ngIf="currentAction === 'new'">
+        <client-edit (newClientEvent)="newClient($event)"></client-edit>
+    </ng-container>
+
+    <ng-container *ngIf="selectedClient && currentAction === 'update'">
+        <client-edit [client]="selectedClient" [update]="true" (newClientEvent)="updateClient($event)"></client-edit>
+
+    </ng-container>
+</div>

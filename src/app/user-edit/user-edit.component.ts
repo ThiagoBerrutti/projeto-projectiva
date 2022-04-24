@@ -35,6 +35,8 @@ export class UserEditComponent implements OnInit
 
     handleInputOnlyDigits(e: any): void
     {
+        
+        console.log(e);
         const pattern: RegExp = /[^\d]/g;
 
         let keyEvent = e as KeyboardEvent;
@@ -55,7 +57,7 @@ export class UserEditComponent implements OnInit
         if (pattern.test(pasteData))
         {
             clipboardEvent.preventDefault();
-            e.target.value += pasteData.replace(pattern, "");
+            e.target.value = pasteData.replace(pattern, "");
         }
     }
 
@@ -66,6 +68,8 @@ export class UserEditComponent implements OnInit
         let _lastName = this.form.get('lastName')?.value;
         let _cpf = this.form.get('cpf')?.value;
         let _rg = this.form.get('rg')?.value;
+
+        console.log(_cpf);
 
         let userUpdate = new UserUpdateModel(_firstName, _lastName, _password, _cpf, _rg);
 
