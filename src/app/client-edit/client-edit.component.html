@@ -1,5 +1,5 @@
-<div class="container">
-    <form [formGroup]="form">
+
+    <form mat [formGroup]="form">
         <mat-form-field  appearance="outline" class="firstName" >
             <mat-label>First name</mat-label>
             <input matInput type="text" placeholder="John" formControlName="firstName"  required>
@@ -29,4 +29,3 @@
         <button class="submit-btn" (click)="handleSubmit()" type="button" color="primary" mat-raised-button>{{ update ? "Update" : "Create"}} </button>
         <button class="submit-btn" (click)="createRandomData()" type="button" color="primary" mat-raised-button>Randomize</button>
     </form>
-</div>

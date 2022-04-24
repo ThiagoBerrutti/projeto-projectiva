@@ -1,10 +1,7 @@
 <div class="client-container">
     <div class="search">
         <div>
-            <span>
-                Search
-            </span>
-
+            <span>Search</span>
             <form [formGroup]="form" (submit)="onSearchSubmit()">
                 <mat-form-field class="name">
                     <mat-label>Name</mat-label>
@@ -23,17 +20,15 @@
         </div>
     </div>
 
-
     <div class="client-list">
         <div>
             <div>
-                <span>
-                    Clients
-                </span>
+                <span>Clients</span>
                 <div class="client-details-buttons">
                     <button class="client-details-buttons-new" (click)="onClickNewClientButton()"
                         mat-raised-button>New</button>
-                    <button class="client-details-buttons-seila" mat-raised-button>SEILA</button>
+                    <button class="client-details-buttons-seila" (click)="currentAction = 'add'"
+                        mat-raised-button>Add</button>
                     <button class="client-details-buttons-update" [disabled]="!selectedClient"
                         (click)="onClickUpdateClientButton()" mat-raised-button color="accent">Update</button>
                     <button class="client-details-buttons-remove" [disabled]="!selectedClient" (click)="removeClient()"
@@ -55,6 +50,8 @@
     </div>
 </div>
 
+
+
 <div class="details-container">
     <ng-container *ngIf="selectedClient && currentAction === 'details'" class="client-details">
         <mat-card-title-group>
@@ -68,14 +65,37 @@
             <p>RG: {{selectedClient.rg}}</p>
         </mat-card-content>
     </ng-container>
-
-
+    
     <ng-container *ngIf="currentAction === 'new'">
         <client-edit (newClientEvent)="newClient($event)"></client-edit>
     </ng-container>
 
     <ng-container *ngIf="selectedClient && currentAction === 'update'">
-        <client-edit [client]="selectedClient" [update]="true" (newClientEvent)="updateClient($event)"></client-edit>
+        <client-edit [client]="selectedClient" [update]="true" (newClientEvent)="updateClient($event)">
+        </client-edit>
+    </ng-container>
 
+    <ng-container *ngIf="currentAction === 'add'">
+        <div class="all-clients">
+            <div>
+                <div>
+                    <span>Add</span>
+                    <button class="add-client-btn" color="primary" [disabled]="!clientToAdd"
+                        (click)="addClient(clientToAdd)" mat-raised-button>Add</button>
+                </div>
+
+                <div *ngIf="isUserWithClients()">
+                    <mat-table [dataSource]="allClients">
+                        <ng-container matColumnDef="name">
+                            <mat-header-cell mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                            <mat-cell *matCellDef="let client">{{client.fullName}} </mat-cell>
+                        </ng-container>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="clientToAdd = row"
+                            [class.row-is-clicked]="clientToAdd == row">
+                        </mat-row>
+                    </mat-table>
+                </div>
+            </div>
+        </div>
     </ng-container>
 </div>

@@ -17,14 +17,6 @@ export class UserWithClients implements User
     public clients!: Client[];
 
     get fullName(): string { return this.firstName + " " + this.lastName }
-    //public clients!: Client[];
-    // {
-    //     let x = this.clientsUsernames.map(username => this._userService!.getUserByUsername(username) as Client);
-    //     console.log("Clients: ",x);
-    //     console.log("UserService:",this._userService);
-
-    //     return x;
-    // }
 
 
     constructor()

@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit
 {
 
     public form!: FormGroup;
+    public variavel!: number;
 
     get userName() { return this.form.get('userName') };
     get password() { return this.form.get('password') };

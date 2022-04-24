@@ -59,30 +59,6 @@ export class UserRepository
         return predicate ? result.filter(predicate) : result;
     }
 
-    // public getLoggedUsers(predicate?: (user: User) => boolean): User[]
-    // {
-    //     let result = [...this.loggedUsers.values()];
-
-    //     return predicate? result.filter(predicate) : result;
-    // }
-
-
-    // public getLoggedUserByToken(token: string): User | undefined
-    // {
-    //     return this.loggedUsers.get(token);
-    // }
-
-
-    // public addLoggedUser(token: string, user: User): void
-    // {
-    //     this.loggedUsers.set(token, user);
-    // }
-
-    // public removeLoggedUser(token: string): void
-    // {
-    //     this.loggedUsers.delete(token);
-    // }
-
     public registerUser(user: User): void
     {
         if (this.registeredUsers.has(user.username)) return;

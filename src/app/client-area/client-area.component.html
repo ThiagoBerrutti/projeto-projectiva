@@ -1,35 +1,3 @@
-<form [formGroup]="form" (submit)="handleSubmit()">
-        <mat-form-field appearance="fill">
-            <mat-label>First name</mat-label>
-            <input matInput type="text" placeholder="John" formControlName="firstName" required>
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>Last name</mat-label>
-            <input matInput type="text" placeholder="Doe" formControlName="lastName" required>
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>RG</mat-label>
-            <input matInput type="text" placeholder="RG" formControlName="rg" required>
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>CPF</mat-label>
-            <input type="text" matInput [maxlength]="14" [value]="form.get('cpf')?.value | cpfFormat"
-                placeholder="{{'11122233344' | cpfFormat}}" 
-                 formControlName="cpf" required>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Username</mat-label>
-            <input matInput type="text" placeholder="Choose an unique username" formControlName="userName" required>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Password</mat-label>
-            <input matInput type="text" placeholder="Your password here" formControlName="password" required>
-        </mat-form-field> 
-
-         <button type="submit" mat-button>SUBMIT</button>
-    </form>
+<div class="container">
+    <client-edit [update]="true" [client]="currentClient" (newClientEvent)="updateClient($event)"></client-edit>
+</div>

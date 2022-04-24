@@ -15,7 +15,6 @@ import { RegisterComponent } from './auth/register/register.component';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CpfFormatPipe } from './shared/pipes/cpfFormat.pipe';
 import { AuthService } from './shared/services/auth.service';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
@@ -28,7 +27,7 @@ import { UserRepository } from './shared/user-repository';
 import { UserService } from './shared/services/user.service';
 import { LoginRepository } from './shared/login-repository';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+// import { UserProfileComponent } from './user-profile/user-profile.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatRippleModule } from '@angular/material/core';
@@ -45,11 +44,10 @@ import {MatListModule} from '@angular/material/list';
         LoginComponent,
         NavbarComponent,
         RegisterComponent,
-        CpfFormatPipe,
         UserDetailsComponent,
         UserEditComponent,
         ClientAreaComponent,
-        UserProfileComponent,
+        // UserProfileComponent,
         UserClientsComponent,
         ClientEditComponent,
     ],

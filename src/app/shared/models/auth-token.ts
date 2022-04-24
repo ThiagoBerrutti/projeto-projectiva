@@ -1,6 +1,6 @@
 import { AppConstants } from "../appConstants";
 
-export class AuthToken 
+export class AuthToken
 {
     static validate(token: string | null): boolean
     {

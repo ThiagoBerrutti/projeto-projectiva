@@ -32,7 +32,6 @@ export class Client implements User{
         user.rg = rg ?? "";
         user.clientOf = undefined;
         
-        //user.fullName = user.firstName + " " + user.lastName;
         return user;
     }
 }

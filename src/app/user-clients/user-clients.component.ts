@@ -21,11 +21,13 @@ export class UserClientsComponent implements OnInit
     public user!: UserWithClients;
     public displayedColumns: string[] = ['name'];
     public selectedClient!: Client | null;
+    public clientToAdd!: Client;
 
     public clientList!: Client[];
 
     public currentAction!: string;
 
+    get allClients(): Client[] { return this._userService.getClients() }
     get asWithClients(): UserWithClients { return this.user as UserWithClients; }
     get asClient(): Client { return this.user as Client }
 
@@ -36,7 +38,7 @@ export class UserClientsComponent implements OnInit
         private snackBar: MatSnackBar)
     { }
 
-    
+
 
     ngOnInit(): void
     {
@@ -60,10 +62,10 @@ export class UserClientsComponent implements OnInit
     }
 
     onSearchSubmit()
-    {        
-        let _name: string = this.form.get('name')?.value
-        let _cpf: string = this.form.get('cpf')?.value.toString();
-        let _rg: string = this.form.get('rg')?.value.toString();
+    {
+        let _name: string = this.form.get('name')?.value ?? ""
+        let _cpf: string = this.form.get('cpf')?.value ?? "";
+        let _rg: string = this.form.get('rg')?.value ?? "";
 
         let result = this.user.clients.filter(c =>
             (!_name || c.fullName.toLocaleLowerCase().includes(_name.toLocaleLowerCase())) &&
@@ -73,10 +75,11 @@ export class UserClientsComponent implements OnInit
 
         this.clientList = result;
 
-        if (!this.clientList.includes(this.selectedClient!)){
+        if (!this.clientList.includes(this.selectedClient!))
+        {
             this.selectedClient = null;
         }
-        // this.currentAction = 'details';
+
         return true;
     }
 
@@ -92,7 +95,7 @@ export class UserClientsComponent implements OnInit
                 verticalPosition: 'bottom',
                 panelClass: 'error-snackbar'
             });
-            
+
             return;
         }
 
@@ -107,7 +110,6 @@ export class UserClientsComponent implements OnInit
 
     newClient(client: Client)
     {
-        this.form.updateValueAndValidity();
 
         let response = this._userService.addClient(this.user, client);
         if (!response.success) 
@@ -117,7 +119,7 @@ export class UserClientsComponent implements OnInit
                 verticalPosition: 'bottom',
                 panelClass: 'error-snackbar'
             });
-            
+
             return;
         }
 
@@ -134,15 +136,11 @@ export class UserClientsComponent implements OnInit
 
     updateClient(clientUpdate: Client)
     {
-        this.form.updateValueAndValidity();
-        // console.log("SELECTED CLIENT BEFORE:", this.selectedClient)
-        // console.log("CLIENTUPDATE BEFORE:", clientUpdate)
         if (!this.selectedClient) return;
-        //  || !this.user.clientsUsernames.includes(clientUpdate.username)) return;
 
         let response = this._userService.updateUser(this.selectedClient, clientUpdate);
         if (!response.success)
-        {            
+        {
             this.snackBar.open(response.message, '', {
                 duration: 1000,
                 verticalPosition: 'bottom',
@@ -151,9 +149,6 @@ export class UserClientsComponent implements OnInit
 
             return;
         }
-        // console.log("SELECTED CLIENT AFTER:", this.selectedClient)
-        // console.log("CLIENTUPDATE AFTER:", clientUpdate)
-
 
         this.onSearchSubmit();
 
@@ -165,6 +160,32 @@ export class UserClientsComponent implements OnInit
 
         console.log(this.selectedClient)
     }
+
+
+
+    addClient(client: Client)
+    {
+        let response = this._userService.addClient(this.user, client);
+        if (!response.success)
+        {
+            this.snackBar.open(response.message, '', {
+                duration: 1000,
+                verticalPosition: 'bottom',
+                panelClass: 'error-snackbar'
+            });
+
+            return;
+        }
+
+        this.onSearchSubmit();
+
+        this.snackBar.open(response.message, '', {
+            duration: 5000,
+            verticalPosition: 'bottom',
+            panelClass: 'success-snackbar'
+        });
+    }
+
 
     onClickNewClientButton()
     {

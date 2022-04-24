@@ -14,8 +14,7 @@ import { ServiceResponse } from './service-response';
 })
 export class UserService
 {
-    constructor(private _userRepository: UserRepository,
-    ) 
+    constructor(private _userRepository: UserRepository) 
     {
     }
 
@@ -32,6 +31,11 @@ export class UserService
     public getUsersByUsernameRange(usernames: string[])
     {
         return this._userRepository.getUsersByUsernameRange(usernames);
+    }
+
+    public getClients(predicate?: (client: Client) => boolean): Client[]
+    {
+        return this._userRepository.getClients(predicate);
     }
 
     public registerUser(user: User): void
@@ -77,22 +81,12 @@ export class UserService
         return new ServiceResponse(true, user, "Client '" + client.username + "' created!");
     }
 
-    // public updateUserClient(user: UserWithClients, client: Client, newClient: Client): ServiceResponse<UserWithClients>
-    // {
-    //     if (client.username !== newClient.username) return new ServiceResponse(false, user, "Clients must have the same username");
-
-        
-
-
-    // }
-
     public updateUser<TUser extends User | User>(user: TUser, newUser: TUser)  : ServiceResponse<TUser>
     {
         if (user.username !== newUser.username){
             console.log("Usernames: ",user.username, newUser.username)
             return new ServiceResponse<TUser>(false, user, "Users must have the same username");
         } 
-
 
         user.cpf = newUser.cpf;
         user.firstName = newUser.firstName;

@@ -45,8 +45,10 @@ export class HomeComponent implements OnInit
     
     show()
     {
-        let x = this.userRepository.getClients();//.map(u => u.firstName);
-        console.log(x);
+        console.log(this.userRepository.getClients());
+        console.log(this.userRepository.getUsers());
+        
+        
     }
     handleSubmit()
     {

@@ -58,6 +58,5 @@ form {
     padding: 5px;
     font-size: 1.4em;
     border-radius: 5px;
-    /* width: calc(100% - 40px); */
     transition: 0.2s;
 }
