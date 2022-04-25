@@ -7,11 +7,13 @@ body {
 body {
     margin: 0;
     background-color: rgb(240, 242, 245);
-    background-color: hsl(216, 20%, 75%);
-    
-    /* background-color: #15191a; 
-    background-color: #0e1011; */
+    background-color: hsl(216, 20%, 75%);    
     font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-raised-button
+{
+    background-color: #eee;
 }
 
 .success-snackbar {
@@ -24,16 +26,4 @@ body {
     background-color: #b00020;
     color: white;
     text-align: center;
-}
-
-.success-snackbar button {
-    background-color: rgb(74, 147, 74);
-    color: white;
-    border: none;
-}
-
-.error-snackbar button {
-    background-color: rgb(176, 0, 32);
-    color: white !important;
-    border: none;
 }

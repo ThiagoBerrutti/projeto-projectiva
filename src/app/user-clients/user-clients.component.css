@@ -4,34 +4,43 @@
     align-items: center;
     height: 100%;
     width: 100%;
+    box-sizing: border-box;
+    justify-content: space-around;
+    padding:20px;
+    gap:10px;
 }
 
-.client-container {
+.left-container {    
+    height: 100%;
+    width: min(50%, 500px);
+    box-sizing: border-box;    
     display: flex;
     flex-direction: column;
-    /* flex: 1 1 auto; */
-    height: 100%;
-    width: max(40%, 360px);
-    box-sizing: border-box;
+    justify-content: flex-start;
 }
 
-.details-container {
+.right-container {
     display: flex;
     flex-direction: column;
     height: 100%;
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
-    width: max(60%, 360px);
+    width: max(50%, 360px);
     background-color:white;
 }
 
 
-/* client */
+/* left container */
+
+.left-container-content{
+    max-width: 500px;
+}
 
 /*search box */
 .search {
-    width: 100%;
+    width:100%;
+    /* max-width: 500px; */
     background-color: #ddd;
     margin-bottom: 10px;
     padding:20px;
@@ -70,6 +79,10 @@
 .client-list {
     height: 100%;
     width: 100%;
+    margin-top:20px;
+    padding:20px;
+    box-sizing: border-box;
+    background-color:#ddd;
 }
 
 .client-list .mat-row .mat-cell {
@@ -85,8 +98,28 @@
     background-color: #f4f4f4
 }
 
+.client-list-buttons {
+    display:flex;
+    padding:8px 0;
+    justify-content: flex-end;
+    gap:5px;
+}
 
-/* details*/
+.client-list-buttons :first-child{
+    margin-left:0;
+}
+
+.client-list-buttons :last-child{
+    margin-right:0;
+}
+
+.client-list-buttons-new{
+    background-color: #4a934a !important;
+    color:white;
+}
+
+
+/* right container*/
 
 .client-details-card {
     justify-content: center;
@@ -101,18 +134,9 @@
     gap:10px;
 }
 
-.client-details .mat-card{
-    line-height:2;
-    background-color: red;
-}
-
-
 .client-details .mat-card-content {
     font-size: 18px;
 }
-
-/* .client-details-card p {
-    font-size} */
 
 .client-details .mat-card-title {
     font-size: 28px;
@@ -124,14 +148,48 @@
     gap:8px;
 }
 
-.details-container .mat-icon,
-.details-container .mat-card-avatar {
-    font-size: 200px;
-    height: 200px;
-    width: 200px;
-    line-height: 200px;
-    color: red;
-    
+.all-clients-header{
+    display:flex;
+    flex-direction: column;
+}
+
+.all-clients {
+    display:flex;
+    flex-direction: column;
+}
+
+.all-clients button{
+    align-self:flex-end;
+}
+
+.all-clients .mat-row .mat-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color .2s;
+}
+
+.all-clients .mat-row:hover .mat-cell {
+    border-color: hsl(0, 0%, 0%, .5);
+    border-width: 1px;
+    background-color: #f4f4f4
+}
+
+.table-container {
+    background-color: #ddd;
+    box-sizing: border-box;
+    padding:8px;
+    margin-top:20px;
+}
+
+.update-clients-header{
+    display:flex;
+    flex-direction: column;
+}
+
+.new-client-header{
+    display:flex;
+    flex-direction: column;
 }
 
 .row-is-clicked {

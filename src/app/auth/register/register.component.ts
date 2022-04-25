@@ -4,9 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AppConstants } from '../../shared/appConstants';
 import { UserCredentials } from '../../shared/models/userCredentials';
-import { UserUpdateModel } from '../../shared/models/userUpdateModel';
 import { AuthService } from '../../shared/services/auth.service';
-import { CustomValidators } from '../../shared/username-available';
+import { CustomValidators } from '../../shared/custom-validators';
 
 
 
@@ -38,8 +37,8 @@ export class RegisterComponent implements OnInit
     ngOnInit(): void
     {
         this.form = this.formBuilder.group({
-            userName: ["", [Validators.required, this.customValidators.usernameAvailableValidator()]],
-            password: ["", [Validators.required, Validators.minLength(AppConstants.USER_PASSWORD_MIN_LENGTH)]]
+            userName: [null, [Validators.required, this.customValidators.usernameAvailableValidator()]],
+            password: [null, [Validators.required, Validators.minLength(AppConstants.USER_PASSWORD_MIN_LENGTH)]]
         });        
     }
 

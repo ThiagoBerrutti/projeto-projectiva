@@ -1,5 +1,3 @@
-import { UserWithClients } from "./user-with-clients";
-
 export interface User
 {
      username: string;

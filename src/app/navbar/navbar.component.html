@@ -8,6 +8,9 @@
                 <li  *ngIf="!isLogged"><a class="registration" mat-button routerLink="/register">Register now</a></li>
                 <li *ngIf="isClient"><a  class="client" mat-button routerLink="/client-area">Client area</a></li>
                 <li *ngIf="isUserWithClients"><a mat-button routerLink="/user-clients">My clients</a> </li>
+                <li *ngIf="isLogged"><a class="profile" mat-button routerLink="/profile">
+                    <mat-icon>account_circle</mat-icon>
+                </a></li>
                 <li><a *ngIf="isLogged" (click)="onLogout()" class="logout" mat-button>
                         <mat-icon>logout</mat-icon>
                     </a>

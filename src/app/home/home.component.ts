@@ -2,66 +2,38 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
-import { UserRepository } from '../shared/user-repository';
+import { UserRepository } from '../shared/repositories/user-repository';
+import { Client } from '../shared/models/client';
+import { UserWithClients } from '../shared/models/user-with-clients';
+import { UserService } from '../shared/services/user.service';
+import { UsersMock } from '../shared/mocks/usersMock';
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit
-{
+{    
+    get clients(){
+        return UsersMock.clients;
+    }
 
-    public form!: FormGroup;
+    get users(){
+        return UsersMock.users;
+    }
+    
 
-    get userName() { return this.form.get('username') }
-
-    constructor(
-        private _authService: AuthService, 
-        private userRepository: UserRepository, 
-        private formBuilder: FormBuilder,
-        private router: Router) 
+    constructor() 
     {
     }
 
     ngOnInit(): void
-    {
-        this.form = this.formBuilder.group({
-            username: [null]
-        });
-
-        if (!this._authService.isLogged())
-        {
-            this.router.navigate(["/login"]);
-        }
-
-        // console.log(this.form)
-    }    
-
-    handleClick()
-    {
-        // console.log(this.form)
+    {        
     }
+
     
-    show()
-    {
-        console.log(this.userRepository.getClients());
-        console.log(this.userRepository.getUsers());
-        
-        
-    }
-    handleSubmit()
-    {
-        // let username = this.form.get('username')?.value || "";
 
-        // let user = this.userRepository.getUserByUsername(username);
-        // if (!user)
-        // {
-        //     console.log("User not found");
-        //     return;
-        // }
-        // console.log("User found!");
-        // console.log(user);
-    }
 
 }

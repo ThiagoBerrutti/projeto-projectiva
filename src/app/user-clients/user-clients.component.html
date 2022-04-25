@@ -1,7 +1,8 @@
-<div class="client-container">
+<div class="left-container">
     <div class="search">
         <div>
-            <span>Search</span>
+            <mat-card-title>Search</mat-card-title>
+
             <form [formGroup]="form" (submit)="onSearchSubmit()">
                 <mat-form-field class="name">
                     <mat-label>Name</mat-label>
@@ -20,18 +21,19 @@
         </div>
     </div>
 
+
     <div class="client-list">
         <div>
-            <div>
-                <span>Clients</span>
-                <div class="client-details-buttons">
-                    <button class="client-details-buttons-new" (click)="onClickNewClientButton()"
+            <div class="client-list-header">
+                <mat-card-title>Clients</mat-card-title>
+                <div class="client-list-buttons">
+                    <button class="client-list-buttons-new" (click)="onClickNewClientButton()"
                         mat-raised-button>New</button>
-                    <button class="client-details-buttons-seila" (click)="currentAction = 'add'"
+                    <button class="client-list-buttons-add" (click)="currentAction = 'add'"
                         mat-raised-button>Add</button>
-                    <button class="client-details-buttons-update" [disabled]="!selectedClient"
-                        (click)="onClickUpdateClientButton()" mat-raised-button color="accent">Update</button>
-                    <button class="client-details-buttons-remove" [disabled]="!selectedClient" (click)="removeClient()"
+                    <button class="client-list-buttons-update" [disabled]="!selectedClient"
+                        (click)="onClickUpdateClientButton()" mat-raised-button>Update</button>
+                    <button class="client-list-buttons-remove" [disabled]="!selectedClient" (click)="removeClient()"
                         mat-raised-button color="warn">Remove</button>
                 </div>
             </div>
@@ -41,22 +43,19 @@
                         <mat-header-cell mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
                         <mat-cell *matCellDef="let client">{{client.fullName}} </mat-cell>
                     </ng-container>
-                    <mat-row *matRowDef="let row; 
-                    columns: displayedColumns;" (click)="onClickRow(row, $event)"
-                        [class.row-is-clicked]="selectedClient == row"></mat-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onClickRow(row, $event)"
+                        [class.row-is-clicked]="selectedClient == row">
+                    </mat-row>
                 </mat-table>
             </div>
         </div>
     </div>
+    <!-- </div> -->
 </div>
 
-
-
-<div class="details-container">
+<div class="right-container">
     <ng-container *ngIf="selectedClient && currentAction === 'details'" class="client-details">
-        <mat-card-title-group>
-            <mat-card-title>{{selectedClient.fullName}}</mat-card-title>
-        </mat-card-title-group>
+        <mat-card-title>{{selectedClient.fullName}}</mat-card-title>
         <mat-card-content>
             <p>Username: {{selectedClient.username}}</p>
             <p>First name: {{selectedClient.firstName}}</p>
@@ -65,36 +64,42 @@
             <p>RG: {{selectedClient.rg}}</p>
         </mat-card-content>
     </ng-container>
-    
+
     <ng-container *ngIf="currentAction === 'new'">
+        <div class="new-client-header">
+            <mat-card-title>New client</mat-card-title>
+            <mat-card-subtitle>Register your new client</mat-card-subtitle>
+        </div>
         <client-edit (newClientEvent)="newClient($event)"></client-edit>
     </ng-container>
 
     <ng-container *ngIf="selectedClient && currentAction === 'update'">
-        <client-edit [client]="selectedClient" [update]="true" (newClientEvent)="updateClient($event)">
-        </client-edit>
+        <div class="update-clients-header">
+            <mat-card-title>Update client</mat-card-title>
+            <mat-card-subtitle>Enter new client data</mat-card-subtitle>
+        </div>
+        <client-edit [client]="selectedClient" [update]="true" (newClientEvent)="updateClient($event)"></client-edit>
     </ng-container>
 
     <ng-container *ngIf="currentAction === 'add'">
         <div class="all-clients">
-            <div>
-                <div>
-                    <span>Add</span>
-                    <button class="add-client-btn" color="primary" [disabled]="!clientToAdd"
-                        (click)="addClient(clientToAdd)" mat-raised-button>Add</button>
-                </div>
+            <div class="all-clients-header">
+                <mat-card-title>Add existing client</mat-card-title>
+                <mat-card-subtitle>Select a client from all clients list</mat-card-subtitle>
+            </div>
 
-                <div *ngIf="isUserWithClients()">
-                    <mat-table [dataSource]="allClients">
-                        <ng-container matColumnDef="name">
-                            <mat-header-cell mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-                            <mat-cell *matCellDef="let client">{{client.fullName}} </mat-cell>
-                        </ng-container>
-                        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="clientToAdd = row"
-                            [class.row-is-clicked]="clientToAdd == row">
-                        </mat-row>
-                    </mat-table>
-                </div>
+            <button class="add-client-btn" color="primary" [disabled]="!clientToAdd" (click)="onClickAddClientButton()"
+                mat-raised-button>Add</button>
+            <div class="table-container">
+                <mat-table [dataSource]="allClients">
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                        <mat-cell *matCellDef="let client">{{client.fullName}} </mat-cell>
+                    </ng-container>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="clientToAdd = row"
+                        [class.row-is-clicked]="clientToAdd === row">
+                    </mat-row>
+                </mat-table>
             </div>
         </div>
     </ng-container>

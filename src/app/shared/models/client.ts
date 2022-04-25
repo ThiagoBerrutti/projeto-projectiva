@@ -1,26 +1,25 @@
 import { User } from "./user";
-import { UserWithClients } from "./user-with-clients";
 
 
-export class Client implements User{
-    public username!: string;
-    public password!: string;
-    public firstName!: string;
-    public lastName!: string;
-    
-    public cpf!: string;
-    public rg!: string;
-    public clientOf?: UserWithClients;
+export class Client implements User
+{
+    public username: string = "";
+    public password: string = "";
+    public firstName: string = "";
+    public lastName: string = "";
 
-    get fullName():string {return this.firstName + " "+ this.lastName}
+    public cpf: string = "";
+    public rg: string = "";
+    public clientOf: string[] = [];
 
+    get fullName(): string { return this.firstName + " " + this.lastName }
 
     constructor()
     {
     }
-    
+
     public static factory(username: string, password?: string,
-        firstName?: string, lastName?: string, cpf?: string, rg?: string): Client
+        firstName?: string, lastName?: string, cpf?: string, rg?: string, clientOf?: string[]): Client
     {
         let user = new Client();
 
@@ -30,8 +29,8 @@ export class Client implements User{
         user.lastName = lastName ?? "";
         user.cpf = cpf ?? "";
         user.rg = rg ?? "";
-        user.clientOf = undefined;
-        
+        user.clientOf = clientOf ?? [];
+
         return user;
     }
 }

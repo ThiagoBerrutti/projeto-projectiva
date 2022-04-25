@@ -5,14 +5,15 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ClientAreaComponent } from './client-area/client-area.component';
 import { UserClientsComponent } from './user-clients/user-clients.component';
-import { AccessGuard } from './shared/access-guard';
+import { AccessGuard } from './shared/guards/access-guard';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
     {
         path: '',
         component: HomeComponent,        
-        data: { requiresLogin: true},
-        canActivate: [AccessGuard],
+        // data: { requiresLogin: true},
+        // canActivate: [AccessGuard],
     },
     {
         path: 'client-area',
@@ -38,6 +39,12 @@ const routes: Routes = [
         data: { requiresUserWithClients: true },
         canActivate: [AccessGuard],
     },
+    {
+        path: 'profile',
+        component: ProfileComponent,
+        data: { requiresLogin: true},
+        canActivate: [AccessGuard]
+    }
     
 ];
 

@@ -1,4 +1,18 @@
-
-<!-- <app-user-edit></app-user-edit> -->
-<!-- <app-user-profile></app-user-profile> -->
-<button (click)="show()">BUTTON</button>
+<div class="container">
+    <mat-card-title>Test accounts</mat-card-title>
+    <div class="content">
+        <div class="clients">
+            <mat-card-title>Clients</mat-card-title>
+            <mat-card-content *ngFor="let client of clients">
+                <p><span>username:</span>{{ client.username }} <span>password:</span> {{client.password}}</p>
+            </mat-card-content>
+        </div>
+        
+        <div class="users">
+            <mat-card-title>Users</mat-card-title>
+            <mat-card-content *ngFor="let user of users">         
+                <p><span>username:</span>{{ user.username }} <span>password:</span> {{user.password}}</p>           
+            </mat-card-content>
+        </div>
+    </div>
+</div>

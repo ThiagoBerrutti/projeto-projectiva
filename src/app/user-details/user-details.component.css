@@ -1,17 +1,13 @@
 :host{
-    display:flex;
+    background-color: white;
+    padding:20px;    
 }
 
-.user-details {
-    display:flex;
-    flex-direction: column;
+.mat-card-title {
+    height:28px;
+    margin-bottom: .33em;
 }
 
-form {
-    display:flex;
-    background-color: #ccc;
-}
-
-.mat-form-field-base {
-    border-radius: 50%;
+.mat-card-content {
+    margin:0;
 }

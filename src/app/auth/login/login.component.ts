@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Client } from 'src/app/shared/models/client';
 import { UserWithClients } from 'src/app/shared/models/user-with-clients';
-import { UsersMock } from 'src/app/shared/usersMock';
 import { AppConstants } from '../../shared/appConstants';
 import { UserCredentials } from '../../shared/models/userCredentials';
 import { AuthService } from '../../shared/services/auth.service';
-import { CustomValidators } from '../../shared/username-available';
+import { CustomValidators } from '../../shared/custom-validators';
 
 @Component({
     selector: 'app-login',
@@ -36,8 +35,8 @@ export class LoginComponent implements OnInit
     ngOnInit(): void
     {
         this.form = this.formBuilder.group({
-            userName: ["user1", [Validators.required]],
-            password: ["12345", [Validators.required, Validators.minLength(AppConstants.USER_PASSWORD_MIN_LENGTH)]]
+            userName: [null, [Validators.required]],
+            password: [null, [Validators.required, Validators.minLength(AppConstants.USER_PASSWORD_MIN_LENGTH)]]
         });
     }
 

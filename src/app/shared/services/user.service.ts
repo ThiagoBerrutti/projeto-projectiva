@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { AppConstants } from '../appConstants';
-import { LoginRepository } from '../login-repository';
+import { LoginRepository } from '../repositories/login-repository';
 import { Client } from '../models/client';
 import { User } from '../models/user';
 import { UserWithClients } from '../models/user-with-clients';
-import { UserRepository } from '../user-repository';
+import { UserRepository } from '../repositories/user-repository';
 import { AuthService } from './auth.service';
 import { ServiceResponse } from './service-response';
 
@@ -38,6 +38,11 @@ export class UserService
         return this._userRepository.getClients(predicate);
     }
 
+    public getUserWithClients(predicate?: (client: UserWithClients) => boolean): UserWithClients[]
+    {
+        return this._userRepository.getUserWithClients(predicate);
+    }
+
     public registerUser(user: User): void
     {
         this._userRepository.registerUser(user);
@@ -56,13 +61,18 @@ export class UserService
         let clientUsernameIndex = user.clientsUsernames.indexOf(client.username);
         user.clientsUsernames.splice(clientUsernameIndex, 1);
 
+        let userUsernameIndex = client.clientOf.indexOf(user.username);
+        client.clientOf.splice(userUsernameIndex,1);
+
         this._userRepository.saveUser(user);
 
-        return new ServiceResponse<UserWithClients>(true, user);
+        return new ServiceResponse<UserWithClients>(true, user, "Client '"+client.fullName+"' removed");
     }
+    
 
     public addClient(user: UserWithClients, client: Client): ServiceResponse<UserWithClients>
     {
+        
         if (user.clientsUsernames.includes(client.username))
         {
             return new ServiceResponse<UserWithClients>(false, user, "Client already on list");
@@ -73,12 +83,12 @@ export class UserService
         user.clientsUsernames.push(client.username);
         user.clients.push(client);
 
-        client.clientOf = user;
+        client.clientOf.push(user.username);
 
         let userSaved = this._userRepository.saveUser(user);
         if (!userSaved) return new ServiceResponse<UserWithClients>(false, userSaved, "Error updating user");
         
-        return new ServiceResponse(true, user, "Client '" + client.username + "' created!");
+        return new ServiceResponse(true, user, "Client '" + client.fullName + "' created!");
     }
 
     public updateUser<TUser extends User | User>(user: TUser, newUser: TUser)  : ServiceResponse<TUser>
@@ -101,20 +111,4 @@ export class UserService
 
         return new ServiceResponse(true, userSaved, "User '"+user.username+"' successfully updated");
     }
-
-    // public getLoggedUserByToken(token: string): User | undefined
-    // {
-    //     return this._loginRepository.getLoggedUserByToken(token);
-    // }
-
-    // public getLoggedUsers(predicate?: (user: User) => boolean): User[]
-    // {
-    //     return this._loginRepository.getLoggedUsers(predicate);
-    // }
-
-    // public addLoggedUser(token: string, user: User): void
-    // {
-    //     this._loginRepository.addLoggedUser(token, user);
-    // }
-
 }

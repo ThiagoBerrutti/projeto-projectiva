@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Client } from '../shared/models/client';
-import { AuthService } from '../shared/services/auth.service';
-import { CustomValidators } from '../shared/username-available';
+import { AppConstants } from '../shared/appConstants';
 
 @Component({
     selector: 'client-edit',
@@ -19,9 +17,7 @@ export class ClientEditComponent implements OnInit
     @Input() public client!: Client | null;
     @Output() newClientEvent = new EventEmitter<Client>();
 
-    constructor(private formBuilder: FormBuilder,
-        private authService: AuthService,
-        private router: Router) 
+    constructor(private formBuilder: FormBuilder) 
     {
     }
 
@@ -32,7 +28,7 @@ export class ClientEditComponent implements OnInit
             lastName: [this.client?.lastName, Validators.required],
             cpf: [this.client?.cpf, Validators.required],
             rg: [this.client?.rg, Validators.required],
-            password: ["12345"],
+            password: [AppConstants.DEFAULT_PASSWORD],
         });
     }
 
@@ -59,7 +55,7 @@ export class ClientEditComponent implements OnInit
             return word;
         };
 
-        let _password = "12345";
+        let _password = AppConstants.DEFAULT_PASSWORD;
         let _cpf = "";
         for (let i = 0; i < 11; i++)
         {
@@ -74,9 +70,6 @@ export class ClientEditComponent implements OnInit
 
         let _firstName = randomWord(5, 8);
         let _lastName = randomWord(3, 8);
-        let _username = _firstName + _cpf;
-
-        let randomClient = Client.factory(_username, _password, _firstName, _lastName, _cpf, _rg);
 
         this.form.setValue({
             cpf: _cpf,
@@ -91,20 +84,16 @@ export class ClientEditComponent implements OnInit
     {
         if (!this.form.valid) return;
 
-        let _password = this.form.get('password')?.value ?? "12345";
+        let _password = this.form.get('password')?.value ?? AppConstants.DEFAULT_PASSWORD;
         let _firstName = this.form.get('firstName')?.value;
         let _lastName = this.form.get('lastName')?.value;
         let _cpf = this.form.get('cpf')?.value as string | undefined;
 
         let _username = this.update ? this.client?.username : _firstName + _cpf?.toString().slice(0, 3);
-        console.log(this.update)
-        console.log(this.client)
-        console.log(this.update? 'true' : 'false')
         let _rg = this.form.get('rg')?.value;
 
         this.client = Client.factory(_username, _password, _firstName, _lastName, _cpf, _rg);
 
         this.newClientEvent.emit(this.client);
-        // this.client = null;
     }
 }

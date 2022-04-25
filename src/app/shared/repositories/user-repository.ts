@@ -1,8 +1,8 @@
 import { Injectable, OnInit } from "@angular/core";
-import { Client } from "./models/client";
-import { User } from "./models/user";
-import { UserWithClients } from "./models/user-with-clients";
-import { UsersMock } from "./usersMock";
+import { Client } from "../models/client";
+import { User } from "../models/user";
+import { UserWithClients } from "../models/user-with-clients";
+import { UsersMock } from "../mocks/usersMock";
 
 @Injectable({ providedIn: 'root' })
 
@@ -14,14 +14,11 @@ export class UserRepository
     private clients!: Map<string, Client>;
 
 
-
-
     constructor()
-    {
-        // [username, user]
-        this.usersWithClients = new Map<string, UserWithClients>();
-        this.clients = new Map<string, Client>();
-        this.registeredUsers = new Map<string, User>();
+    {        
+        this.usersWithClients = new Map<string, UserWithClients>(); // [username, user]
+        this.clients = new Map<string, Client>(); // [username, user]
+        this.registeredUsers = new Map<string, User>(); // [username, user]
 
         UsersMock.users.forEach(u =>
         {
@@ -52,12 +49,14 @@ export class UserRepository
         return predicate ? result.filter(predicate) : result;
     }
 
+
     public getUsers(predicate?: (user: User) => boolean): User[]
     {
         let result = [...this.registeredUsers.values()];
 
         return predicate ? result.filter(predicate) : result;
     }
+
 
     public registerUser(user: User): void
     {
@@ -90,8 +89,6 @@ export class UserRepository
         {
             this.setUserWithClientsClients(user);
         }
-
-
 
         return user;
     }
@@ -138,7 +135,7 @@ export class UserRepository
 
         if (user instanceof UserWithClients) 
         {
-            this.clients.set(user.username, user);
+            this.usersWithClients.set(user.username, user);
         }        
 
         return user;
@@ -159,6 +156,4 @@ export class UserRepository
 
         user.clients = clients;
     }
-
-
 }

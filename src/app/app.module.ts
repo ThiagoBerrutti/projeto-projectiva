@@ -17,24 +17,23 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './shared/services/auth.service';
 import { UserDetailsComponent } from './user-details/user-details.component';
-import { UserEditComponent } from './user-edit/user-edit.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { CustomValidators } from './shared/username-available';
+import { CustomValidators } from './shared/custom-validators';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ClientAreaComponent } from './client-area/client-area.component';
-import { UserRepository } from './shared/user-repository';
+import { UserRepository } from './shared/repositories/user-repository';
 import { UserService } from './shared/services/user.service';
-import { LoginRepository } from './shared/login-repository';
+import { LoginRepository } from './shared/repositories/login-repository';
 import { MatExpansionModule } from '@angular/material/expansion';
-// import { UserProfileComponent } from './user-profile/user-profile.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatRippleModule } from '@angular/material/core';
 import { UserClientsComponent } from './user-clients/user-clients.component';
 import { ClientEditComponent } from './client-edit/client-edit.component'
-import { AccessGuard } from './shared/access-guard';
-import {MatListModule} from '@angular/material/list';
+import { AccessGuard } from './shared/guards/access-guard';
+import { MatListModule } from '@angular/material/list';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -45,11 +44,10 @@ import {MatListModule} from '@angular/material/list';
         NavbarComponent,
         RegisterComponent,
         UserDetailsComponent,
-        UserEditComponent,
         ClientAreaComponent,
-        // UserProfileComponent,
         UserClientsComponent,
         ClientEditComponent,
+        ProfileComponent,
     ],
     imports: [
         BrowserModule,
@@ -70,7 +68,7 @@ import {MatListModule} from '@angular/material/list';
         MatTableModule,
         MatRippleModule,
         MatListModule
-        
+
 
 
     ],

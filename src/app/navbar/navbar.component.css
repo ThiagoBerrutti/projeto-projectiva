@@ -5,32 +5,32 @@ mat-toolbar {
 
 mat-toolbar-row {
     height: 70px;
-    padding:0;
+    padding: 0;
 }
 
-nav{
-    display:flex;
+nav {
+    display: flex;
     flex-direction: row;
     height: 100%;
-    margin:0;
+    margin: 0;
     padding: 0;
 }
 
-nav ul{
+nav ul {
     list-style-type: none;
-    margin:0;
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
-    display:flex;
+    display: flex;
     align-items: center;
 }
 
-nav ul li{
+nav ul li {
     display: inline-block;
 }
 
-nav ul li a{
-    display:flex;
+nav ul li a {
+    display: flex;
     align-items: center;
 }
 
@@ -47,28 +47,26 @@ nav .mat-button-base {
     color: #000;
 }
 
-.profile {
-    align-items: center;
-    font-size: 30px;
-}
+
 
 .profile .mat-icon {
     font-size: 40px;
+    height: 40px;
+    width: 40px;
 }
 
 .logo {
-    display:flex;
+    display: flex;
     align-items: center;
     font-weight: 700;
     height: 100%;
-    padding:0px 16px;
+    padding: 0px 16px;
     font-size: 2rem;
     letter-spacing: 4px;
     text-decoration: none;
-    color: #fff;    
+    color: #fff;
 }
 
 .spacer {
     flex: 1 1 auto;
 }
-

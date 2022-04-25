@@ -1,14 +1,12 @@
-import { Injectable, OnInit, Type } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { AuthResponse } from 'src/app/auth/auth-response';
 import { AppConstants } from '../appConstants';
-import { LoginRepository } from '../login-repository';
+import { LoginRepository } from '../repositories/login-repository';
 import { AuthToken } from '../models/auth-token';
 import { Client } from '../models/client';
 import { User } from '../models/user';
 import { UserWithClients } from '../models/user-with-clients';
 import { UserCredentials } from '../models/userCredentials';
-import { UserRepository } from '../user-repository';
-import { UsersMock } from '../usersMock';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -19,7 +17,7 @@ export class AuthService implements OnInit
 {
     public localUser: User | undefined;
 
-    private userLogged!: boolean;
+    // private userLogged!: boolean;
 
     constructor(private _userService: UserService, private _loginRepository: LoginRepository)
     {
@@ -31,17 +29,17 @@ export class AuthService implements OnInit
     }
 
 
-
-
     public getAuthTokenFromLocalStorage(): string | null
     {
         return window.localStorage.getItem(AppConstants.USER_AUTH_TOKEN_KEY);
     }
 
+
     private setAuthTokenOnLocalStorage(token: string)
     {
         window.localStorage.setItem(AppConstants.USER_AUTH_TOKEN_KEY, token);
     }
+
 
     private createToken(user: User): string
     {
@@ -55,9 +53,8 @@ export class AuthService implements OnInit
 
     public setUserLoggedOnLocalStorage(logged: boolean): void
     {
-        this.userLogged = logged;
+        // this.userLogged = logged;
         window.localStorage.setItem(AppConstants.USER_LOGGED_KEY, logged.toString());
-        1+1;
     }
 
     public getUserLoggedFromLocalStorage(): string
@@ -80,9 +77,9 @@ export class AuthService implements OnInit
 
         let user = this._loginRepository.getLoggedUserByToken(token!);
 
-        return !!user &&
-            user == this.localUser
+        return !!user && user == this.localUser
     }
+
 
     public isUsernameAvailable(username: string): boolean
     {
@@ -137,6 +134,7 @@ export class AuthService implements OnInit
         return new AuthResponse<User>(true, user, "User authenticated successfully");
     }
 
+
     public logoutUser(): AuthResponse<undefined>
     {
         let token = window.localStorage.getItem(AppConstants.USER_AUTH_TOKEN_KEY);
@@ -151,7 +149,4 @@ export class AuthService implements OnInit
 
         return new AuthResponse<undefined>(true, undefined, "Logged out");
     }
-
-
-
 }

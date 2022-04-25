@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LoginRepository } from '../shared/login-repository';
+import { LoginRepository } from '../shared/repositories/login-repository';
 import { Client } from '../shared/models/client';
 import { User } from '../shared/models/user';
 import { UserWithClients } from '../shared/models/user-with-clients';
@@ -21,15 +21,15 @@ export class UserClientsComponent implements OnInit
     public user!: UserWithClients;
     public displayedColumns: string[] = ['name'];
     public selectedClient!: Client | null;
-    public clientToAdd!: Client;
+    public clientToAdd!: Client | null;
 
     public clientList!: Client[];
 
     public currentAction!: string;
 
     get allClients(): Client[] { return this._userService.getClients() }
-    get asWithClients(): UserWithClients { return this.user as UserWithClients; }
-    get asClient(): Client { return this.user as Client }
+    // get asWithClients(): UserWithClients { return this.user as UserWithClients; }
+    // get asClient(): Client { return this.user as Client }
 
     constructor(
         private _userService: UserService,
@@ -61,8 +61,38 @@ export class UserClientsComponent implements OnInit
         this.selectedClient = clickedClient;
     }
 
+    onClickNewClientButton()
+    {
+        this.currentAction = 'new';
+        this.selectedClient = null;
+    }
+
+    onClickAddClientButton()
+    {
+        this.currentAction = 'add';
+        this.selectedClient = null;
+        this.addClient(this.clientToAdd)
+        this.clientToAdd = null;        
+    }
+
+    onClickUpdateClientButton()
+    {
+        this.currentAction = 'update';
+    }
+
+    onClickRemoveClientButton()
+    {
+        this.currentAction = 'remove';
+        this.removeClient();
+    }
+
     onSearchSubmit()
     {
+        this.refreshSearch();
+        this.selectedClient = null;
+    }
+
+    refreshSearch(){
         let _name: string = this.form.get('name')?.value ?? ""
         let _cpf: string = this.form.get('cpf')?.value ?? "";
         let _rg: string = this.form.get('rg')?.value ?? "";
@@ -83,6 +113,8 @@ export class UserClientsComponent implements OnInit
         return true;
     }
 
+
+
     removeClient()
     {
         if (!this.selectedClient) return;
@@ -100,7 +132,8 @@ export class UserClientsComponent implements OnInit
         }
 
         this.user = response.data!;
-        this.onSearchSubmit();
+        this.refreshSearch();
+
         this.snackBar.open(response.message, '', {
             duration: 1000,
             verticalPosition: 'bottom',
@@ -125,7 +158,7 @@ export class UserClientsComponent implements OnInit
 
 
         this.user = response.data!;
-        this.onSearchSubmit();
+        this.refreshSearch();
 
         this.snackBar.open(response.message, '', {
             duration: 5000,
@@ -133,6 +166,7 @@ export class UserClientsComponent implements OnInit
             panelClass: 'success-snackbar'
         });
     }
+
 
     updateClient(clientUpdate: Client)
     {
@@ -150,7 +184,7 @@ export class UserClientsComponent implements OnInit
             return;
         }
 
-        this.onSearchSubmit();
+        this.refreshSearch();
 
         this.snackBar.open(response.message, '', {
             duration: 5000,
@@ -163,8 +197,10 @@ export class UserClientsComponent implements OnInit
 
 
 
-    addClient(client: Client)
+    addClient(client: Client | null)
     {
+        if (!client) return;
+
         let response = this._userService.addClient(this.user, client);
         if (!response.success)
         {
@@ -177,32 +213,12 @@ export class UserClientsComponent implements OnInit
             return;
         }
 
-        this.onSearchSubmit();
+        this.refreshSearch();
 
-        this.snackBar.open(response.message, '', {
+        this.snackBar.open("Client '"+response.data?.username+"' added", '', {
             duration: 5000,
             verticalPosition: 'bottom',
             panelClass: 'success-snackbar'
         });
     }
-
-
-    onClickNewClientButton()
-    {
-        this.currentAction = 'new';
-        this.selectedClient = null;
-    }
-
-    onClickUpdateClientButton()
-    {
-        this.currentAction = 'update';
-    }
-
-    onClickRemoveClientButton()
-    {
-        this.currentAction = 'remove';
-        let x = this.removeClient();
-    }
-
-
 }

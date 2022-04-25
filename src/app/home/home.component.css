@@ -1,4 +1,41 @@
 :host{
     width:100%;
     height:100%;
+    display:flex;  
+    justify-content: center;  
+    align-items: center;
 }
+
+.container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.content{
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+span{
+    font-weight: bold;
+}
+
+.mat-card-title{
+    padding:8px 0;
+}
+
+.clients,
+.users,
+.container {
+    background-color:white;
+    margin:8px;
+}
+
+.container{
+    border: 1px solid black;
+    border-radius:5px;
+}
+

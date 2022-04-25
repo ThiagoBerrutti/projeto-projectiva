@@ -1,23 +1,20 @@
+<div class="form-container">
+    <form [formGroup]="form" (ngSubmit)="handleSubmit()" #localForm="ngForm">
+        <mat-form-field appearance="outline">
+            <input matInput class="username-input" formControlName="userName" type="text"
+                placeholder="E-mail or username">
+            <mat-error *ngIf="localForm.submitted || userName?.invalid && (userName?.touched || userName?.dirty)">
+                <div *ngIf="userName?.errors?.['required']">Username required</div>
+            </mat-error>
+        </mat-form-field>
 
-    <div class="form-container">
-        <form [formGroup]="form" (ngSubmit)="handleSubmit()" #localForm="ngForm">
-            <mat-form-field appearance="outline">
-                <input matInput class="username-input" formControlName="userName" type="text"
-                    placeholder="E-mail or username">
-                <mat-error *ngIf="localForm.submitted || userName?.invalid && (userName?.touched || userName?.dirty)">
-                    <div *ngIf="userName?.errors?.['required']">Username required</div>
-                </mat-error>
-            </mat-form-field>
+        <mat-form-field appearance="outline">
+            <input matInput class="password-input" formControlName="password" type="password" placeholder="Password">
+            <mat-error *ngIf="localForm.submitted || password?.invalid && (password?.touched || password?.dirty)">
+                <div *ngIf="password?.errors?.['required']">Password required</div>
+            </mat-error>
+        </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <input matInput class="password-input" formControlName="password" type="password"
-                    placeholder="Password">
-                <mat-error *ngIf="localForm.submitted || password?.invalid && (password?.touched || password?.dirty)">
-                    <div *ngIf="password?.errors?.['required']">Password required</div>
-                    <div *ngIf="password?.errors?.['minlength']">Password minimum length is 4 </div>
-                </mat-error>
-            </mat-form-field>
-
-            <button class="login-btn" color="primary" mat-raised-button>Log in</button>
-        </form>
-    </div>
+        <button class="login-btn" color="primary" mat-raised-button>Log in</button>
+    </form>
+</div>

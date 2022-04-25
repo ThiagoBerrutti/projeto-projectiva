@@ -1,5 +1,5 @@
 import { UserService } from "../services/user.service";
-import { UsersMock } from "../usersMock";
+import { UsersMock } from "../mocks/usersMock";
 import { Client } from "./client";
 import { User } from "./user";
 
